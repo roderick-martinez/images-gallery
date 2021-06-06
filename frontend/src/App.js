@@ -11,11 +11,13 @@ const App = () => {
   // setWord is a function that sets the value of the variable word
   // both are passed as properties to the Search component so that they can be used by that component
   const [word, setWord] = useState('');
-  
+
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     console.log(word);
-    fetch(`https://api.unsplash.com/photos/random/?query=${word}&client_id=${UNSPLASH_KEY}`)
+    fetch(
+      `https://api.unsplash.com/photos/random/?query=${word}&client_id=${UNSPLASH_KEY}`
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -24,14 +26,14 @@ const App = () => {
         console.log(err);
       });
     setWord('');
-  }
+  };
 
   return (
     <div>
-      <Header title="Images Gallery"/>
-      <Search word={word} setWord={setWord} handleSubmit={handleSearchSubmit}/>
+      <Header title="Images Gallery" />
+      <Search word={word} setWord={setWord} handleSubmit={handleSearchSubmit} />
     </div>
   );
-}
+};
 
 export default App;
