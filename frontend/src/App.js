@@ -12,6 +12,12 @@ const App = () => {
   // both are passed as properties to the Search component so that they can be used by that component
   const [word, setWord] = useState('');
 
+  // This holds the values of the images in an array.
+  // useState sets a default empty array at first.
+  const [images, setImages] = useState([]);
+
+  console.log(images);
+
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     console.log(word);
@@ -20,7 +26,9 @@ const App = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // pull data from array using js spread operator ...
+        // it will create a new array of images
+        setImages([data, ...images]);
       })
       .catch((err) => {
         console.log(err);
