@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Search from './components/Search';
 import ImageCard from './components/ImageCard';
 import { Container, Col, Row } from 'react-bootstrap';
+import Welcome from './components/Welcome';
 
 const UNSPLASH_KEY = process.env.REACT_APP_UNSPLASH_KEY;
 
@@ -58,19 +59,24 @@ const App = () => {
       <Search word={word} setWord={setWord} handleSubmit={handleSearchSubmit} />
 
       <Container className="mt-4">
-        <Row xs={1} md={2} lg={3}>
-          {/* 
+        {/* Display images only if they exist, otherwise display welcome message */}
+        {images.length ? (
+          <Row xs={1} md={2} lg={3}>
+            {/* 
             Using the JS map method, map each image in the images array and 
             spit out the JSX that displays the image cards.
             Technically it's returning an array of ImageCard.
             The "key" prop provides the JSX code the index of the element in 
             the images array. This is required by JSX.  */}
-          {images.map((image, i) => (
-            <Col key={i} className="pb-3">
-              <ImageCard image={image} deleteImage={handleDeleteImage} />
-            </Col>
-          ))}
-        </Row>
+            {images.map((image, i) => (
+              <Col key={i} className="pb-3">
+                <ImageCard image={image} deleteImage={handleDeleteImage} />
+              </Col>
+            ))}
+          </Row>
+        ) : (
+          <Welcome />
+        )}
       </Container>
     </div>
   );
