@@ -1,10 +1,19 @@
 version: '3'
 services:
   frontend:
+    restart: always
     build: ./frontend
     ports:
       - '3000:3000'
+    volumes:
+      - /app/node_modules #this prevents the container's node_modules folder from being mapped to the local drive
+      - ./frontend:/app   #this maps the local frontend folder to the container's app folder
+    environment:
+      - CHOKIDAR_USEPOLLING=true  #this fixes an issue with syncing mapped files
   api:
+    restart: always
     build: ./api
     ports:
       - '5050:5050'
+    volumes:
+      - ./api:/app
